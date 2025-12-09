@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard IoT - Solo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>Dashboard IoT - Dados do Solo</h1>
+    <canvas id="chartUmidade" width="900" height="300"></canvas>
+    <canvas id="chartProducao" width="900" height="300"></canvas>
+
+    <script>
+      fetch('/api/series').then(r=>r.json()).then(data=>{
+        const labels = data.map(d=>d.data_observacao).reverse();
+        const umidade = data.map(d=>d.umidade_solo).reverse();
+        const producao = data.map(d=>d.producao_kg || 0).reverse();
+
+        const ctx1 = document.getElementById('chartUmidade').getContext('2d');
+        new Chart(ctx1, {
+          type: 'line',
+          data: { labels, datasets: [{ label:'Umidade do Solo (%)', data:umidade, fill:false }] },
+          options:{ responsive:true }
+        });
+
+        const ctx2 = document.getElementById('chartProducao').getContext('2d');
+        new Chart(ctx2, {
+          type: 'line',
+          data: { labels, datasets: [{ label:'Produção (kg)', data:producao, fill:false }] },
+          options:{ responsive:true }
+        });
+      });
+    </script>
+  </body>
+</html>

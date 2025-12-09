@@ -1,0 +1,76 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "SEU_WIFI";
+const char* password = "SUA_SENHA";
+
+const char* serverName = "http://SEU_IP:5000/api/solo";
+
+// Função para gerar valores randômicos float
+float randFloat(float minVal, float maxVal) {
+  return minVal + (float)random(0, 10000) / 10000.0 * (maxVal - minVal);
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  Serial.println("Conectando ao Wi-Fi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+
+  Serial.println("Wi-Fi conectado!");
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+
+    http.begin(serverName);
+    http.addHeader("Content-Type", "application/json");
+
+    // Simulação dos dados
+    String json = "{";
+    json += "\"latitude\":" + String(randFloat(-23.0, -22.0)) + ",";
+    json += "\"longitude\":" + String(randFloat(-47.0, -46.0)) + ",";
+
+    json += "\"temperatura_solo\":" + String(randFloat(18, 30)) + ",";
+    json += "\"umidade_solo\":" + String(randFloat(10, 50)) + ",";
+    json += "\"condutividade_solo\":" + String(randFloat(0.1, 1.5)) + ",";
+    json += "\"ph\":" + String(randFloat(5.0, 7.5)) + ",";
+    json += "\"npk_n\":" + String(randFloat(20, 70)) + ",";
+    json += "\"npk_p\":" + String(randFloat(10, 40)) + ",";
+    json += "\"npk_k\":" + String(randFloat(20, 60)) + ",";
+
+    json += "\"temperatura_ar\":" + String(randFloat(15, 35)) + ",";
+    json += "\"pressao\":" + String(randFloat(950, 1050)) + ",";
+    json += "\"altitude\":" + String(randFloat(500, 800)) + ",";
+    json += "\"umidade_relativa\":" + String(randFloat(40, 90)) + ",";
+    json += "\"radiacao_solar\":" + String(randFloat(200, 1200)) + ",";
+    json += "\"indice_uv\":" + String(randFloat(1, 11)) + ",";
+    json += "\"velocidade_vento\":" + String(randFloat(0, 15)) + ",";
+    json += "\"pluviometria_mm\":" + String(randFloat(0, 20)) + ",";
+
+    json += "\"altura_planta\":" + String(randFloat(5, 120)) + ",";
+    json += "\"biomassa_estimada\":" + String(randFloat(0.1, 5.0)) + ",";
+    json += "\"area_foliar_lai\":" + String(randFloat(1.0, 6.0)) + ",";
+
+    json += "\"cultura\":\"Soja\",";
+    json += "\"estagio_fenologico\":\"V3\",";
+    json += "\"data_plantio\":\"2025-01-10\"";
+
+    json += "}";
+
+    int resposta = http.POST(json);
+
+    Serial.println("Enviando dados...");
+    Serial.println(json);
+    Serial.println("Resposta HTTP: " + String(resposta));
+
+    http.end();
+  }
+
+  delay(60000); // envia a cada 60 segundos
+}
