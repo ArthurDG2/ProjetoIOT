@@ -88,4 +88,5 @@ def analisar_correlacoes_producao(df):
         'temperatura_solo', 'umidade_solo', 'condutividade_solo', 'ph',
         'npk_n', 'npk_p', 'npk_k',
         'temperatura_ar', 'umidade_relativa', 'radiacao_solar',
-        'altura
+        'altura' 
+        ]
