@@ -1,30 +1,34 @@
 # IoT Agro API
+
 API Flask para coleta e análise de dados de sensores agrícolas IoT.
 
-# 🚀 Instalação Rápida
- 
- git clone <repositorio> 
- cd iot-agro-api
- python -m venv venv
- source venv/bin/activate  # Linux/Mac
- #ou venv\Scripts\activate (Windows)
- pip install -r requirements.txt
- cp .env.example .env
- #Configure o .env com suas credenciais MySQL
+## 🚀 Instalação Rápida
 
-# 📋 Configuração Mínima (.env)
+```bash
+git clone <repositorio>
+cd iot-agro-api
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou venv\Scripts\activate (Windows)
+pip install -r requirements.txt
+cp .env.example .env
+# Configure o .env com suas credenciais MySQL
+```
 
-(env)
+## 📋 Configuração Mínima (.env)
+
+```bash
 MYSQL_HOST=localhost
 MYSQL_USER=root
 MYSQL_PASSWORD=sua_senha
 MYSQL_DB=iot_db
 FLASK_HOST=0.0.0.0
 FLASK_PORT=5000
+```
 
-# 🗄️ Estrutura da Tabela
+## 🗄️ Estrutura da Tabela
 
-(sql)
+```bash
 CREATE TABLE dados_solo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     data_observacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -38,18 +42,20 @@ CREATE TABLE dados_solo (
     cultura VARCHAR(50),
     estagio_fenologico VARCHAR(50)
 );
+```
 
-# 📡 Endpoints Principais
+## 📡 Endpoints Principais
 
 POST /api/solo - Enviar dados
 
-(json)
+```bash
 {
     "temperatura_solo": 22.5,
     "umidade_solo": 45.3,
     "ph": 6.8,
     "cultura": "soja"
 }
+```
 
 GET /api/dados - Consultar dados
 
@@ -59,13 +65,14 @@ GET /api/estatisticas - Estatísticas
 
 GET /api/exportar - Exportar CSV/JSON
 
-# 🏃‍♂️ Executar
+## 🏃‍♂️ Executar
 
-(bash)
+```bash
 python api/app.py
 #Acesse: http://localhost:5000
+```
 
-# 🛡️ Segurança
+## 🛡️ Segurança
 
 Rate limiting: 200 requisições/dia, 50/hora
 
