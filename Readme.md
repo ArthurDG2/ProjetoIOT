@@ -2,6 +2,49 @@
 
 API Flask para coleta e análise de dados de sensores agrícolas IoT.
 
+## Estrutura do Projeto
+```bash
+projetoiot/
+├── api/
+│   └── app.py                    # API Flask (porta 5000)
+├── dashboard/
+│   ├── dashboard.py              # Dashboard Flask (porta 5001)
+│   └── templates/
+│       └── index.html            # Interface web
+├── docs/
+│   └── popular_simulado.py        # Gráficos e relatórios
+├── analise/
+│   ├── correlacao.py             # Análise de Pearson
+│   └── modelo_producao.py        # Machine Learning
+├── modelos/
+│   ├── database.sql              # Script SQL
+├── .env                          # Variáveis de ambiente
+├── requirements.txt              # Dependências Python
+└── README.md                     # Este arquivo
+```
+
+## 🌟 Funcionalidades
+Coleta de Dados: Recebe dados de múltiplos sensores (solo, clima, plantas)
+
+Armazenamento: Persistência em banco de dados MySQL
+
+Análise: Estatísticas, filtros e consultas avançadas
+
+Exportação: Dados em JSON e CSV
+
+Predição: Modelo simplificado de produção agrícola
+
+Monitoramento: Endpoint de saúde e alertas automáticos
+
+Segurança: Rate limiting e CORS configurado
+
+## Pré-requisitos
+Python 3.8+
+
+MySQL 8.0+
+
+pip (gerenciador de pacotes Python)
+
 ## 🚀 Instalação Rápida
 
 ```bash
