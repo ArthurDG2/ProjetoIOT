@@ -2,7 +2,8 @@ IoT Agro API
 API Flask para coleta e análise de dados de sensores agrícolas IoT.
 
 🚀 Instalação Rápida
-bash
+
+(bash) 
 git clone <repositorio>
 cd iot-agro-api
 python -m venv venv
@@ -13,7 +14,8 @@ cp .env.example .env
 # Configure o .env com suas credenciais MySQL
 
 📋 Configuração Mínima (.env)
-env
+
+(env)
 MYSQL_HOST=localhost
 MYSQL_USER=root
 MYSQL_PASSWORD=sua_senha
@@ -22,7 +24,8 @@ FLASK_HOST=0.0.0.0
 FLASK_PORT=5000
 
 🗄️ Estrutura da Tabela
-sql
+
+(sql)
 CREATE TABLE dados_solo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     data_observacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -38,8 +41,10 @@ CREATE TABLE dados_solo (
 );
 
 📡 Endpoints Principais
+
 POST /api/solo - Enviar dados
-json
+
+(json)
 {
     "temperatura_solo": 22.5,
     "umidade_solo": 45.3,
@@ -48,6 +53,7 @@ json
 }
 
 GET /api/dados - Consultar dados
+
 Parâmetros: limit, cultura, data_inicio, data_fim
 
 GET /api/estatisticas - Estatísticas
@@ -55,11 +61,13 @@ GET /api/estatisticas - Estatísticas
 GET /api/exportar - Exportar CSV/JSON
 
 🏃‍♂️ Executar
-bash
+
+(bash)
 python api/app.py
 # Acesse: http://localhost:5000
 
 🛡️ Segurança
+
 Rate limiting: 200 requisições/dia, 50/hora
 
 CORS habilitado
